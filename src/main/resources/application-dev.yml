@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  session:
+    timeout: 1800
+  tomcat: 
+    max-threads: 1000
+    min-spare-threads: 200
+    accept-count: 1000
+    max-connections: 1000
+ # connection-timeout: 60
+ 
+spring:
+   datasource: 
+     name: master
+     driver-class-name: com.mysql.jdbc.Driver
+     url: jdbc:mysql://127.0.0.1:3306/convert_mall_db
+     username: root
+     password: liliu 
+   redis:
+     host: 127.0.0.1
+     password: liliu
+     port: 6379 
+     database: 1
+     timeout: 3000
+     pool: 
+       min-idle: 100
+       max-idle: 300
+       max-active: 800 
+myPugin: 
+  session: 
+    myDomainName: null
+  projectName: ConvertMall
+  location: c://config/thirdParty.properties
+  requestAuth: requestAuthDev
+  rabbitmq:
+    DIRECT_EXCHANGE: test.convertmall.exchange.direct
+    DIRECT_ROUTINGKEY: test.convertmall.routingkey.direct
+    DIRECT_QUEUE: test.convertmall.queue.direct

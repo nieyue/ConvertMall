@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.nieyue.dao.MerOrderDao">
+<!-- 添加商品 -->
+<insert id="addMerOrder" parameterType="MerOrder" keyProperty="merOrderId" flushCache="true"  >  
+   INSERT IGNORE INTO
+   		  mer_order_tb 
+   		 (
+   		 order_number,
+   		 create_date,
+   		 update_date,
+   		 acount_id,
+   		 receipt_info_id)
+   VALUES
+    	 (
+    	 #{orderNumber},
+    	 #{createDate},
+    	 #{updateDate},
+    	 #{acountId},
+    	 #{receiptInfoId}
+    	 )  
+</insert>  
+<!-- 更新商品 -->
+<update id="updateMerOrder" parameterType="MerOrder" >  
+    UPDATE 
+    	mer_order_tb 
+    <set>
+    <if test="orderNumber!=null">
+    	order_number=#{orderNumber},
+    </if>
+    <if test="createDate!=null">
+    	create_date=#{createDate},
+    </if>
+    <if test="updateDate!=null">
+    	update_date=#{updateDate},
+    </if>
+    <if test="acountId!=null">
+    	acount_id=#{acountId},
+    </if>
+    <if test="receiptInfoId!=null">
+   		receipt_info_id=#{receiptInfoId},
+    </if>
+    </set>
+    WHERE
+    	 mer_order_id=#{merOrderId} 
+</update> 
+<!-- 删除商品-->
+<delete id="delMerOrder"  parameterType="Integer" >  
+    DELETE FROM
+    	 mer_order_tb 
+    	 WHERE mer_order_id=#{merOrderId}
+</delete>  
+<!-- 加载商品-->
+<select id="loadMerOrder" parameterType="Integer" resultType="MerOrder" >
+SELECT 
+		 mer_order_id,
+	 	 order_number,
+   		 create_date,
+   		 update_date,
+   		 acount_id,
+   		 receipt_info_id
+FROM mer_order_tb 
+WHERE mer_order_id=#{merOrderId}
+</select>
+
+<!-- 分页查询商品-->
+<select id="browsePagingMerOrder" resultType="MerOrder">  
+        SELECT
+	     mer_order_id,
+	 	 order_number,
+   		 create_date,
+   		 update_date,
+   		 acount_id,
+   		 receipt_info_id
+	FROM mer_order_tb
+	<where>
+	<if test="acountId!=null">
+	AND acount_id=#{acountId}
+	</if>
+	<if test="createDate!=null">
+	AND DATE(create_date)=DATE(#{createDate})
+	</if>
+	<if test="updateDate!=null">
+	AND DATE(update_date)=DATE(#{updateDate})
+	</if>
+	AND ${orderName} 
+	<if test="orderWay=='asc'">
+	<![CDATA[>=]]> 
+	</if>
+	<if test="orderWay=='desc'">
+	  <![CDATA[<= ]]>
+	</if>
+	(SELECT ${orderName} FROM mer_order_tb 
+	<where>
+	<if test="acountId!=null">
+	AND acount_id=#{acountId}
+	</if>
+	<if test="createDate!=null">
+	AND DATE(create_date)=DATE(#{createDate})
+	</if>
+	<if test="updateDate!=null">
+	AND DATE(update_date)=DATE(#{updateDate})
+	</if>
+	</where>
+		ORDER BY 
+			${orderName}  ${orderWay}
+		LIMIT #{pageNum}, 1
+		) 
+	</where>
+	ORDER BY
+		${orderName}  ${orderWay}
+	LIMIT
+		#{pageSize}
+</select> 
+
+<!-- 统计记录条数 -->
+<select id="countAll"  resultType="int">  
+	SELECT
+	 	count(mer_order_id)
+	FROM mer_order_tb
+	<where>
+		<if test="acountId!=null">
+	AND acount_id=#{acountId}
+	</if>
+	<if test="createDate!=null">
+	AND DATE(create_date)=DATE(#{createDate})
+	</if>
+	<if test="updateDate!=null">
+	AND DATE(update_date)=DATE(#{updateDate})
+	</if>
+	</where>
+</select>   
+   
+ 
+</mapper>

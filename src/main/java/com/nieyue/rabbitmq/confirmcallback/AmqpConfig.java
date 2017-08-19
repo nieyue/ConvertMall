@@ -19,12 +19,24 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration  
 public class AmqpConfig {
-	@Value("${myPugin.rabbitmq.DIRECT_EXCHANGE}")
-    public  String DIRECT_EXCHANGE ;  
-	@Value("${myPugin.rabbitmq.DIRECT_ROUTINGKEY}")
-    public String DIRECT_ROUTINGKEY;  
-	@Value("${myPugin.rabbitmq.DIRECT_QUEUE}")
-    public  String DIRECT_QUEUE; 
+	/**
+	 * 商品订单
+	 */
+	@Value("${myPugin.rabbitmq.MERORDER_DIRECT_EXCHANGE}")
+    public  String MERORDER_DIRECT_EXCHANGE ;  
+	@Value("${myPugin.rabbitmq.MERORDER_DIRECT_ROUTINGKEY}")
+    public String MERORDER_DIRECT_ROUTINGKEY;  
+	@Value("${myPugin.rabbitmq.MERORDER_DIRECT_QUEUE}")
+    public  String MERORDER_DIRECT_QUEUE; 
+	/**
+	 *流水
+	 */
+	@Value("${myPugin.rabbitmq.FLOWWATER_DIRECT_EXCHANGE}")
+	public  String FLOWWATER_DIRECT_EXCHANGE ;  
+	@Value("${myPugin.rabbitmq.FLOWWATER_DIRECT_ROUTINGKEY}")
+	public String FLOWWATER_DIRECT_ROUTINGKEY;  
+	@Value("${myPugin.rabbitmq.FLOWWATER_DIRECT_QUEUE}")
+	public  String FLOWWATER_DIRECT_QUEUE; 
 	
 	
     @Autowired
@@ -36,26 +48,64 @@ public class AmqpConfig {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);  
         return rabbitTemplate;  
     } 
-	 /** 设置交换机类型  */  
+    /** 
+     *商品订单
+     */  
+    /*
+     * 设置交换机类型
+     */   
     @Bean  
-    public DirectExchange DIRECTExchange() {  
+    public DirectExchange merOrderDirectExchange() {  
         /** 
          * DirectExchange:按照routingkey分发到指定队列 
          * TopicExchange:多关键字匹配 
          * FanoutExchange: 将消息分发到所有的绑定队列，无routingkey的概念 
          * HeadersExchange ：通过添加属性key-value匹配 
          */  
-    	DirectExchange de = new DirectExchange(DIRECT_EXCHANGE);
+    	DirectExchange de = new DirectExchange(MERORDER_DIRECT_EXCHANGE);
         return de;
-    }  
+    }
+    /*
+     * 设置队列
+     */
     @Bean  
-    public Queue DIRECTQueue() {  
-        return new Queue(DIRECT_QUEUE);  
-    } 
+    public Queue merOrderDirectQueue() {  
+        return new Queue(MERORDER_DIRECT_QUEUE);  
+    }
+    /*
+     * 设置绑定
+     */
     @Bean  
-    public Binding binding() {  
+    public Binding merOrderDirectBinding() {  
         /** 将队列绑定到交换机 */  
-        return BindingBuilder.bind(DIRECTQueue()).to(DIRECTExchange()).with(DIRECT_ROUTINGKEY);  
+        return BindingBuilder.bind(merOrderDirectQueue()).to(merOrderDirectExchange()).with(MERORDER_DIRECT_ROUTINGKEY);  
+    } 
+    
+    /** 
+     *流水
+     */  
+    /*
+     * 设置交换机类型
+     */   
+    @Bean  
+    public DirectExchange flowWaterDirectExchange() {  
+    	DirectExchange de = new DirectExchange(FLOWWATER_DIRECT_EXCHANGE);
+    	return de;
+    }
+    /*
+     * 设置队列
+     */
+    @Bean  
+    public Queue flowWaterDirectQueue() {  
+    	return new Queue(FLOWWATER_DIRECT_QUEUE);  
+    }
+    /*
+     * 设置绑定
+     */
+    @Bean  
+    public Binding flowWaterDirectBinding() {  
+    	/** 将队列绑定到交换机 */  
+    	return BindingBuilder.bind(flowWaterDirectQueue()).to(flowWaterDirectExchange()).with(FLOWWATER_DIRECT_ROUTINGKEY);  
     } 
 
 }

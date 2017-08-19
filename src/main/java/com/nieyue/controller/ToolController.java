@@ -59,6 +59,9 @@ public class ToolController {
 	public String getSession(
 			HttpSession	 session
 			){
+		System.err.println(session.getAttribute("acount"));
+		System.err.println(session.getAttribute("role"));
+		System.err.println(session.getAttribute("finance"));
 		return session.getId();
 		
 	}

@@ -121,9 +121,12 @@ public class ReceiptInfoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/setIsDefault", method = {RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody StateResult setReceiptInfoIsDefault(@RequestParam(value="receiptInfoId") Integer receiptInfoId,HttpSession session)  {
+	public @ResponseBody StateResult setReceiptInfoIsDefault(
+			@RequestParam(value="receiptInfoId") Integer receiptInfoId,
+			@RequestParam(value="acountId") Integer acountId,
+			HttpSession session)  {
 		boolean b=false;
-			List<ReceiptInfo> l = receiptInfoService.browsePagingReceiptInfo(null, 1, null, null, 1, Integer.MAX_VALUE, "receipt_info_id", "asc");
+			List<ReceiptInfo> l = receiptInfoService.browsePagingReceiptInfo(acountId, 1, null, null, 1, Integer.MAX_VALUE, "receipt_info_id", "asc");
 			if(l.size()>0){
 			for (int i = 0; i < l.size(); i++) {
 				ReceiptInfo re = l.get(i);

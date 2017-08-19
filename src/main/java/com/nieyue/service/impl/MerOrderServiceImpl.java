@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nieyue.bean.Finance;
 import com.nieyue.bean.Mer;
 import com.nieyue.bean.MerOrder;
 import com.nieyue.bean.OrderMer;
 import com.nieyue.bean.ReceiptInfo;
+import com.nieyue.business.FinanceBusiness;
 import com.nieyue.dao.MerOrderDao;
 import com.nieyue.service.MerOrderService;
 import com.nieyue.service.MerService;
@@ -37,6 +39,30 @@ public class MerOrderServiceImpl implements MerOrderService{
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public boolean addMerOrder(MerOrder merOrder) {
+		boolean b=false;
+		Double merOrderMoney=0.0;
+		//判断库存和金钱
+		List<OrderMer> orderMerList = merOrder.getOrderMerList();
+		for (int i = 0; i < orderMerList.size(); i++) {
+			OrderMer orderMer = orderMerList.get(i);
+			Integer mid = orderMer.getMerId();
+			//商品
+			Mer mer = merService.loadSmallMer(mid);
+			if(mer.getStock()-orderMer.getNumber()<=0){//没有库存
+				return b;
+			}
+			merOrderMoney+=mer.getPrice();
+		}
+		//判断购买人的财务是否够
+		try {
+			Finance finance = FinanceBusiness.getFinanceByAcountId(merOrder.getAcountId());
+			if(finance.getMoney()-merOrderMoney<0.0){
+				return b;//不够
+			}
+		} catch (Exception e) {
+			return b;
+		}//获取
+		//增加商品订单
 		merOrder.setCreateDate(new Date());
 		merOrder.setUpdateDate(new Date());
 		BoundValueOperations<String, String> orderBvo = stringRedisTemplate.boundValueOps(DateUtil.getImgDir()+"Increament");
@@ -44,12 +70,19 @@ public class MerOrderServiceImpl implements MerOrderService{
 		orderBvo.increment(1);
 		//订单号（23位）=随机4位+14位时间+自增5位
 		merOrder.setOrderNumber(((int) (Math.random()*9000)+1000)+DateUtil.getOrdersTime()+(Integer.valueOf(orderBvo.get())+10000));
-		boolean b = merOrderDao.addMerOrder(merOrder);
-		List<OrderMer> orderMerList = merOrder.getOrderMerList();
+		b = merOrderDao.addMerOrder(merOrder);
+		//增加订单的商品
 		for (int i = 0; i < orderMerList.size(); i++) {
 			OrderMer orderMer = orderMerList.get(i);
 			Integer mid = orderMer.getMerId();
-			Mer mer = merService.loadMer(mid);
+			//修改商品
+			Mer mer = merService.loadSmallMer(mid);
+			mer.setStock(mer.getStock()-orderMer.getNumber());//减库存
+			mer.setSaleNumber(mer.getSaleNumber()+orderMer.getNumber());//加销售数量
+			mer.setSaleMoney(mer.getSaleMoney()+orderMer.getNumber()*mer.getPrice());//计算销售额=原有销售额+销售数目*单价
+			mer.setUpdateDate(new Date());
+			mer.setDetail(null);
+			merService.updateMer(mer);//修改商品
 			orderMer.setCreateDate(new Date());
 			orderMer.setUpdateDate(new Date());
 			orderMer.setMerOrderId(merOrder.getMerOrderId());
@@ -60,6 +93,8 @@ public class MerOrderServiceImpl implements MerOrderService{
 			orderMer.setTotalPrice(orderMer.getPrice()*orderMer.getNumber());
 			b=orderMerService.addOrderMer(orderMer);
 		}
+		
+		
 		return b;
 	}
 	@Transactional(propagation=Propagation.REQUIRED)

@@ -66,4 +66,9 @@ public class Role implements Serializable{
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", name=" + name + ", duty=" + duty + ", updateDate=" + updateDate + "]";
+	}
+	
 }

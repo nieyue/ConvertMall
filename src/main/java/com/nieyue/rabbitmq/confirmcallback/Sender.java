@@ -11,7 +11,8 @@ import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.nieyue.bean.OrderRabbitmqDTO;
+import com.nieyue.bean.FlowWater;
+import com.nieyue.bean.MerOrder;
 
 /**
  * 消息生产者
@@ -33,10 +34,23 @@ public class Sender  implements RabbitTemplate.ConfirmCallback{
 	        this.rabbitTemplate.setConfirmCallback(this); 
 	    } 
 	
-	 public void send(OrderRabbitmqDTO orderRabbitmqDTO) { 
+	/**
+	 * 商品订单
+	 * @param orderRabbitmqDTO
+	 */
+	 public void sendMerOrder(MerOrder merOrder) { 
 	        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-	        this.rabbitTemplate.convertAndSend(amqpConfig.DIRECT_EXCHANGE, amqpConfig.DIRECT_ROUTINGKEY, orderRabbitmqDTO, correlationData);  
+	        this.rabbitTemplate.convertAndSend(amqpConfig.MERORDER_DIRECT_EXCHANGE, amqpConfig.MERORDER_DIRECT_ROUTINGKEY, merOrder, correlationData);  
 	     
+	 }  
+	 /**
+	  * 流水
+	  * @param orderRabbitmqDTO
+	  */
+	 public void sendFlowWater(FlowWater flowWater) { 
+		 CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+		 this.rabbitTemplate.convertAndSend(amqpConfig.FLOWWATER_DIRECT_EXCHANGE, amqpConfig.FLOWWATER_DIRECT_ROUTINGKEY, flowWater, correlationData);  
+		 
 	 }  
 	 /** 回调方法 */
 	 @Override

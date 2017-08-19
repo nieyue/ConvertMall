@@ -41,20 +41,47 @@
 <update id="updateMer" parameterType="Mer" >  
     UPDATE 
     	mer_tb 
-    SET 
+   <set>
+    	<if test="title!=null">
     	title=#{title},
+    	</if>
+    	<if test="oldPrice!=null">
     	old_price=#{oldPrice},
+    	</if>
+    	<if test="price!=null">
     	price=#{price},
+    	</if>
+    	<if test="stock!=null">
     	stock=#{stock},
+    	</if>
+    	<if test="saleNumber!=null">
     	sale_number=#{saleNumber},
+    	</if>
+    	<if test="saleMoney!=null">
     	sale_money=#{saleMoney},
+    	</if>
+    	<if test="discount!=null">
     	discount=#{discount},
+    	</if>
+    	<if test="postage!=null">
     	postage=#{postage},
+    	</if>
+    	<if test="status!=null">
     	status=#{status},
+    	</if>
+    	<if test="detail!=null">
     	detail=#{detail},
+    	</if>
+    	<if test="merCateId!=null">
     	mer_cate_id=#{merCateId},
+    	</if>
+    	<if test="createDate!=null">
     	create_date=#{createDate},
+    	</if>
+    	<if test="updateDate!=null">
     	update_date=#{updateDate}
+    	</if>
+   </set> 
     WHERE
     	 mer_id=#{merId} 
 </update> 

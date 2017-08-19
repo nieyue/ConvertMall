@@ -37,6 +37,16 @@ public class MyDESutil {
 		return md5;
 	}
 	/**
+	 * 获取MD5 SESSIONID证书
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getMD5SESSIONID(Object obj,String sessionId){
+		String md5 = DigestUtils.md5Hex(obj+MD5_SLAT+sessionId);
+		return md5;
+	}
+	/**
 	 * 获取MD5
 	 * @param obj
 	 * @return
@@ -46,7 +56,6 @@ public class MyDESutil {
 		String md5 = DigestUtils.md5Hex(obj+MD5_SLAT+timestamp);
 		return md5;
 	}
-	
 	public static void main(String[] args) throws Exception {
 		String sha1 =getSHA("sdfadsf");
 		System.out.println(sha1);

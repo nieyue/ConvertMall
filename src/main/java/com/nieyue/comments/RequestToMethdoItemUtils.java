@@ -79,7 +79,7 @@ public class RequestToMethdoItemUtils {
 	                    String requestMethodName = mappingInfoValue.getMethod().getName();
 	                  //  Class<?>[] methodParamTypes = mappingInfoValue.getMethod().getParameterTypes();
 	                    String methodParamTypes = getMethodParams(mappingInfoValue.getBeanType().getName().toString(),requestMethodName);
-	                	System.out.println(mappingInfoValue);
+	                	//System.out.println(mappingInfoValue);
 	                    RequestToMethodItem item = new RequestToMethodItem(controllerName, requestMethodName, requestType, requestUrl,methodParamTypes);
 
 	                    requestToMethodItemList.add(item );

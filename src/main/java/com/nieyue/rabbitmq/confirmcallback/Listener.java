@@ -54,7 +54,6 @@ public class Listener {
     			flowWater.setMoney(-money);//商品为减
     			flowWater.setType(-1);//1-兑换商品
     			flowWater.setSubtype(1);
-    			//HttpClientUtil.doGet("http://192.168.7.111/finance")
     			sender.sendFlowWater(flowWater);
 	        	  } 
 	        	   channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);

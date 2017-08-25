@@ -51,10 +51,11 @@ public class Listener {
     			for (int i = 0; i < merOrder.getOrderMerList().size(); i++) {
 					money+=merOrder.getOrderMerList().get(i).getTotalPrice();
 				}
+    			flowWater.setRealMoney(0.0);//商品真钱
     			flowWater.setMoney(-money);//商品为减
     			flowWater.setType(-1);//1-兑换商品
     			flowWater.setSubtype(1);
-    			sender.sendFlowWater(flowWater);
+    			sender.sendMerOrderFlowWater(flowWater);
 	        	  } 
 	        	   channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 			} catch (Exception e) {

@@ -27,6 +27,7 @@ com\nieyue\bean\MerImg.class
 com\nieyue\util\MyRequestIpAddrUtil.class
 com\nieyue\bean\Finance.class
 com\nieyue\util\MyConvertXML$1.class
+com\nieyue\business\FinanceBusiness.class
 com\nieyue\weixin\PastUtil.class
 com\nieyue\controller\ToolController.class
 com\MyApplication.class
@@ -59,6 +60,7 @@ com\nieyue\util\MyBase64.class
 com\nieyue\weixin\bean\UnifiedOrder.class
 com\nieyue\dao\MerDao.class
 com\nieyue\util\Base64PHP.class
+com\nieyue\business\CertificateBusiness.class
 com\nieyue\bean\ReceiptInfo.class
 com\nieyue\util\MacAddressUtil.class
 com\nieyue\weixin\UnifiedOrderUtil.class
@@ -100,6 +102,6 @@ com\nieyue\util\MyPugin.class
 com\nieyue\bean\MerOrder.class
 com\nieyue\util\ReadFromFile.class
 com\nieyue\service\MerService.class
-com\nieyue\bean\OrderRabbitmqDTO.class
+com\nieyue\bean\FlowWater.class
 com\nieyue\exception\MyAbstractHandlerExceptionResolver.class
 com\nieyue\service\impl\MerImgServiceImpl.class

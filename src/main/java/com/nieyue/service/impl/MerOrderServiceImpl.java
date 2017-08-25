@@ -31,11 +31,16 @@ public class MerOrderServiceImpl implements MerOrderService{
 	@Resource
 	StringRedisTemplate stringRedisTemplate;
 	@Resource
+	FinanceBusiness financeBusiness;
+	@Resource
 	OrderMerService orderMerService;
 	@Resource
 	MerService merService;
 	@Resource
 	ReceiptInfoService receiptInfoService;
+	/**
+	 * {acountId:1000,receiptInfoId:1000,orderMerList:[{merId:1010,number:4}]}
+	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public boolean addMerOrder(MerOrder merOrder) {
@@ -55,7 +60,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 		}
 		//判断购买人的财务是否够
 		try {
-			Finance finance = FinanceBusiness.getFinanceByAcountId(merOrder.getAcountId());
+			Finance finance = financeBusiness.getFinanceByAcountId(merOrder.getAcountId());
 			if(finance.getMoney()-merOrderMoney<0.0){
 				return b;//不够
 			}
@@ -93,7 +98,6 @@ public class MerOrderServiceImpl implements MerOrderService{
 			orderMer.setTotalPrice(orderMer.getPrice()*orderMer.getNumber());
 			b=orderMerService.addOrderMer(orderMer);
 		}
-		
 		
 		return b;
 	}

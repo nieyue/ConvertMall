@@ -44,12 +44,12 @@ public class Sender  implements RabbitTemplate.ConfirmCallback{
 	     
 	 }  
 	 /**
-	  * 流水
+	  * 商品订单流水
 	  * @param orderRabbitmqDTO
 	  */
-	 public void sendFlowWater(FlowWater flowWater) { 
+	 public void sendMerOrderFlowWater(FlowWater flowWater) { 
 		 CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-		 this.rabbitTemplate.convertAndSend(amqpConfig.FLOWWATER_DIRECT_EXCHANGE, amqpConfig.FLOWWATER_DIRECT_ROUTINGKEY, flowWater, correlationData);  
+		 this.rabbitTemplate.convertAndSend(amqpConfig.MERORDERFLOWWATER_DIRECT_EXCHANGE, amqpConfig.MERORDERFLOWWATER_DIRECT_ROUTINGKEY, flowWater, correlationData);  
 		 
 	 }  
 	 /** 回调方法 */

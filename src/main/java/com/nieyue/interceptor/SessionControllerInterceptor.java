@@ -70,7 +70,6 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         sessionAcount = (Acount) request.getSession().getAttribute("acount");
         sessionRole = (Role) request.getSession().getAttribute("role");
         }
-        
         if(
         		request.getServletPath().equals("/")
         		||request.getRequestURI().indexOf("tool")>-1
@@ -120,6 +119,7 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         				||request.getRequestURI().indexOf("add")>-1
         				||request.getRequestURI().indexOf("update")>-1 )
         				&& !CertificateBusiness.md5SessionCertificate(request)){
+        			//System.err.println("MyCertificateException");
         			throw new MyCertificateException();
         		}
         		//商品不许删除/增加/修改
@@ -148,12 +148,13 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         				|| request.getRequestURI().indexOf("/merOrder/add")>-1
         				|| request.getRequestURI().indexOf("/merOrder/update")>-1
         				){
-        			 StringBuffer url = request.getRequestURL();
+        			StringBuffer url = request.getRequestURL();
+        			 /*StringBuffer url = request.getRequestURL();
         			 if (request.getQueryString() != null) {
         			  url.append('?');
         			  url.append(request.getQueryString());
         			 }
-        			 System.out.println(url.toString());
+        			 System.out.println(url.toString());*/
         			//增加自身信息
         			if( request.getRequestURI().indexOf("/merOrder/add")>-1 && request.getParameter("acountId").equals(sessionAcount.getAcountId().toString())){
         				return true;
@@ -176,11 +177,11 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         			throw new MySessionException();
         		}
         		//订单商品信息不许删除/增加/修改
-        		if( request.getRequestURI().indexOf("/receiptInfo/delete")>-1 
-        				|| request.getRequestURI().indexOf("/receiptInfo/add")>-1
-        				|| request.getRequestURI().indexOf("/receiptInfo/update")>-1
-        				||request.getRequestURI().indexOf("receiptInfo/list")>-1
-                		||method.getName().equals("loadReceiptInfo")
+        		if( request.getRequestURI().indexOf("/orderMer/delete")>-1 
+        				|| request.getRequestURI().indexOf("/orderMer/add")>-1
+        				|| request.getRequestURI().indexOf("/orderMer/update")>-1
+        				||request.getRequestURI().indexOf("orderMer/list")>-1
+                		||method.getName().equals("loadOrderMer")
         				){ 
         			//增删改查自身信息
         			if( request.getParameter("acountId").equals(sessionAcount.getAcountId().toString())){
@@ -193,6 +194,7 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         	}
         	
         }
+        //System.err.println("last");
         //如果验证token失败
        throw new MySessionException();
 	}

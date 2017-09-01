@@ -91,6 +91,7 @@ com\nieyue\service\impl\MerOrderServiceImpl.class
 com\nieyue\cookie\CustomerCookieSerializer.class
 com\nieyue\limit\RequestLimitException.class
 com\nieyue\comments\IPCountUtil.class
+com\nieyue\exception\MyInsufficientMoneyException.class
 com\nieyue\comments\MyDateFormatter.class
 com\nieyue\comments\RequestToMethdoItemUtils.class
 com\nieyue\service\MerImgService.class

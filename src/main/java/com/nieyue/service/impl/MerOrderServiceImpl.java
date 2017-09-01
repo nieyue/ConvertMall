@@ -62,6 +62,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 		try {
 			Finance finance = financeBusiness.getFinanceByAcountId(merOrder.getAcountId());
 			if(finance.getMoney()-merOrderMoney<0.0){
+				//throw new MyInsufficientMoneyException();
 				return b;//不够
 			}
 		} catch (Exception e) {
@@ -70,7 +71,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 		//增加商品订单
 		merOrder.setCreateDate(new Date());
 		merOrder.setUpdateDate(new Date());
-		BoundValueOperations<String, String> orderBvo = stringRedisTemplate.boundValueOps(DateUtil.getImgDir()+"Increament");
+		BoundValueOperations<String, String> orderBvo = stringRedisTemplate.boundValueOps(DateUtil.getImgDir()+"ConvertMallIncreament");
 		orderBvo.expire(DateUtil.currentToEndTime(), TimeUnit.SECONDS);
 		orderBvo.increment(1);
 		//订单号（23位）=随机4位+14位时间+自增5位

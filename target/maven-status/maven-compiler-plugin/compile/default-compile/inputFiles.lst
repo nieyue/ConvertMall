@@ -37,6 +37,7 @@ D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\servic
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\bean\Mer.java
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\bean\MerCate.java
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\util\Configure.java
+D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\exception\MyInsufficientMoneyException.java
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\service\impl\MerServiceImpl.java
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\util\ResultUtil.java
 D:\java\myeclipse2014\myeclipse\work\ConvertMall\src\main\java\com\nieyue\util\IMGIndivisibleUtil.java

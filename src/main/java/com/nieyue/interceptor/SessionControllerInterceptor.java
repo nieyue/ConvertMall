@@ -107,7 +107,6 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
         	//超级管理员
         	if(sessionRole.getName().equals("超级管理员")
         			||sessionRole.getName().equals("运营管理员")
-        			||sessionRole.getName().equals("编辑管理员")
         			||sessionRole.getName().equals("商城管理员")
         			){
         		return true;

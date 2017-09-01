@@ -57,5 +57,10 @@ public class MyExceptionAdvice {
 	public StateResult requestCertificateErrorHandler( Exception e) throws Exception {
 		return ResultUtil.getSlefSR(80000, "没有认证");
 	}
+	@ExceptionHandler(value={MyInsufficientMoneyException.class})
+	@ResponseBody
+	public StateResult requestInsufficientMoneyHandler( Exception e) throws Exception {
+		return ResultUtil.getSlefSR(10001, "积分不够");
+	}
 	
 }

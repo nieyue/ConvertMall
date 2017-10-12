@@ -26,6 +26,7 @@ public class OrderMerServiceImpl implements OrderMerService{
 		orderMer.setCreateDate(new Date());
 		orderMer.setUpdateDate(new Date());
 		orderMer.setStatus(1);
+		orderMer.setCourierCompany(0);
 		boolean b = orderMerDao.addOrderMer(orderMer);
 		
 		return b;

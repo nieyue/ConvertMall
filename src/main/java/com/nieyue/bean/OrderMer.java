@@ -42,6 +42,14 @@ public class OrderMer implements Serializable{
 	 * 状态，0已下单-未支付，1已支付-未发货，2已发货-未完成，3申请退款，4已退款，5拒绝退款,6已完成
 	 */
 	private Integer status;
+	/**
+	 * 快递公司,0暂无,1顺丰速运SF,2中通快递ZTO,3圆通速递YTO,4申通快递STO,5百世快递BestExpress,6韵达快递YUNDA,7中国邮政EMS,8宅急送ZJS,9FedEx联邦,10京东物流
+	 */
+	private Integer courierCompany;
+	/**
+	 * 快递单号
+	 */
+	private String courierNumber;
 	
 	/**
 	 * 商品的订单Id
@@ -118,11 +126,24 @@ public class OrderMer implements Serializable{
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public String getCourierNumber() {
+		return courierNumber;
+	}
+	public void setCourierNumber(String courierNumber) {
+		this.courierNumber = courierNumber;
+	}
+	public Integer getCourierCompany() {
+		return courierCompany;
+	}
+	public void setCourierCompany(Integer courierCompany) {
+		this.courierCompany = courierCompany;
+	}
 	public OrderMer() {
 		super();
 	}
 	public OrderMer(Integer orderMerId, Double price, Integer number, Double totalPrice, Date createDate,
-			Date updateDate, Integer status, Integer merOrderId, Integer merId, Mer mer) {
+			Date updateDate, Integer status, Integer courierCompany, String courierNumber, Integer merOrderId,
+			Integer merId, Mer mer) {
 		super();
 		this.orderMerId = orderMerId;
 		this.price = price;
@@ -131,6 +152,8 @@ public class OrderMer implements Serializable{
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.status = status;
+		this.courierCompany = courierCompany;
+		this.courierNumber = courierNumber;
 		this.merOrderId = merOrderId;
 		this.merId = merId;
 		this.mer = mer;

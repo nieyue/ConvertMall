@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nieyue.bean.MerImg;
 import com.nieyue.bean.Mer;
 import com.nieyue.bean.MerCate;
 import com.nieyue.bean.MerImg;
@@ -53,6 +54,11 @@ public class MerServiceImpl implements MerService{
 	@Override
 	public boolean delMer(Integer merId) {
 		boolean b = merDao.delMer(merId);
+		List<MerImg> merImgList=merImgService.browsePagingMerImg(merId, null, null, 1, Integer.MAX_VALUE, "mer_img_id", "asc");
+		for (int i = 0; i < merImgList.size(); i++) {
+			MerImg merImg = merImgList.get(i);
+			b=merImgService.delMerImg(merImg.getMerImgId());
+		}
 		return b;
 	}
 	@Transactional(propagation=Propagation.REQUIRED)

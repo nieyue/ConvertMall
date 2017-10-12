@@ -14,6 +14,8 @@
    		 create_date,
    		 update_date,
    		 status,
+   		 courier_company,
+   		 courier_number,
    		 mer_order_id,
    		 mer_id)
    VALUES
@@ -24,6 +26,8 @@
     	 #{createDate},
     	 #{updateDate},
     	 #{status},
+    	 #{courierCompany},
+    	 #{courierNumber},
     	 #{merOrderId},
     	 #{merId}
     	 )  
@@ -51,6 +55,12 @@
 	<if test="status!=null">
     	status=#{status},
     	</if>
+	<if test="courierCompany!=null">
+    	courier_company=#{courierCompany},
+    	</if>
+	<if test="courierNumber!=null">
+    	courier_number=#{courierNumber},
+    	</if>
 	<if test="merOrderId!=null">
     	mer_order_id=#{merOrderId},
     	</if>
@@ -77,6 +87,8 @@ SELECT
    		 create_date,
    		 update_date,
    		 status,
+   		 courier_company,
+   		 courier_number,
    		 mer_order_id,
    		 mer_id
 FROM order_mer_tb 
@@ -93,6 +105,8 @@ WHERE order_mer_id=#{orderMerId}
    		 create_date,
    		 update_date,
    		 status,
+   		 courier_company,
+   		 courier_number,
    		 mer_order_id,
    		 mer_id
 	FROM order_mer_tb

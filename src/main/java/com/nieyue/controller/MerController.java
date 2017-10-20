@@ -50,7 +50,7 @@ public class MerController {
 			@RequestParam(value="status",required=false)Integer status,
 			@RequestParam(value="pageNum",defaultValue="1",required=false)int pageNum,
 			@RequestParam(value="pageSize",defaultValue="10",required=false) int pageSize,
-			@RequestParam(value="orderName",required=false,defaultValue="mer_id") String orderName,
+			@RequestParam(value="orderName",required=false,defaultValue="update_date") String orderName,
 			@RequestParam(value="orderWay",required=false,defaultValue="desc") String orderWay)  {
 			List<Mer> list = new ArrayList<Mer>();
 			list= merService.browsePagingMer(price,saleNumber,saleMoney,merCateId,createDate,updateDate,status,pageNum, pageSize, orderName, orderWay);

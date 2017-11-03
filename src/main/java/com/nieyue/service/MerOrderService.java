@@ -22,11 +22,13 @@ public interface MerOrderService {
 	/** 商品订单总共数目 */	
 	public int countAll(
 			Integer acountId,
+			String orderNumber,
 			Date createDate,
 			Date updateDate);
 	/** 分页商品订单信息 */
 	public List<MerOrder> browsePagingMerOrder(
 			Integer acountId,
+			String orderNumber,
 			Date createDate,
 			Date updateDate,
 			int pageNum,

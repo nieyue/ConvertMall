@@ -60,7 +60,9 @@ public class SessionControllerInterceptor implements HandlerInterceptor {
        if(MyDESutil.getMD5("1000").equals(request.getParameter("auth"))){
           	return true;
        }
-       
+//       if(1==1){
+//    	  return true;
+//       }
         Acount sessionAcount = null;
         Role sessionRole=null;
         if(request.getSession()!=null

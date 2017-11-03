@@ -11,6 +11,7 @@
    		 price,
    		 number,
    		 total_price,
+   		 remark,
    		 create_date,
    		 update_date,
    		 status,
@@ -23,6 +24,7 @@
     	 #{price},
     	 #{number},
     	 #{totalPrice},
+    	 #{remark},
     	 #{createDate},
     	 #{updateDate},
     	 #{status},
@@ -45,6 +47,9 @@
     	</if>
 	<if test="totalPrice!=null">
     	total_price=#{totalPrice},
+    	</if>
+	<if test="remark!=null">
+    	remark=#{remark},
     	</if>
 	<if test="createDate!=null">
     	create_date=#{createDate},
@@ -84,6 +89,7 @@ SELECT
 	 	 price,
    		 number,
    		 total_price,
+   		 remark,
    		 create_date,
    		 update_date,
    		 status,
@@ -102,6 +108,7 @@ WHERE order_mer_id=#{orderMerId}
 	 	 price,
    		 number,
    		 total_price,
+   		 remark,
    		 create_date,
    		 update_date,
    		 status,

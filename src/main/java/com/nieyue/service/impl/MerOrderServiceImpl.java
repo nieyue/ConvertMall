@@ -39,7 +39,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 	@Resource
 	ReceiptInfoService receiptInfoService;
 	/**
-	 * {acountId:1000,receiptInfoId:1000,orderMerList:[{merId:1010,number:4}]}
+	 * {"acountId":1000,"receiptInfoId":1000,"orderMerList":[{"merId":1000,"number":2,"remark":"白色25寸"}]}
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -53,7 +53,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 			Integer mid = orderMer.getMerId();
 			//商品
 			Mer mer = merService.loadSmallMer(mid);
-			if(mer.getStock()-orderMer.getNumber()<=0){//没有库存
+			if(mer.getStock()-orderMer.getNumber()<0){//没有库存
 				return b;
 			}
 			merOrderMoney+=mer.getPrice();
@@ -87,6 +87,9 @@ public class MerOrderServiceImpl implements MerOrderService{
 			mer.setSaleNumber(mer.getSaleNumber()+orderMer.getNumber());//加销售数量
 			mer.setSaleMoney(mer.getSaleMoney()+orderMer.getNumber()*mer.getPrice());//计算销售额=原有销售额+销售数目*单价
 			mer.setUpdateDate(new Date());
+			if(mer.getStock()==0){
+				mer.setStatus(2);//售完
+			}
 			mer.setDetail(null);
 			merService.updateMer(mer);//修改商品
 			orderMer.setCreateDate(new Date());
@@ -134,10 +137,12 @@ public class MerOrderServiceImpl implements MerOrderService{
 	@Override
 	public int countAll(
 			Integer acountId,
+			String orderNumber,
 			Date createDate,
 			Date updateDate) {
 		int c = merOrderDao.countAll(
 				acountId,
+				orderNumber,
 				createDate,
 				updateDate);
 		return c;
@@ -146,6 +151,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 	@Override
 	public List<MerOrder> browsePagingMerOrder(
 			Integer acountId,
+			String orderNumber,
 			Date createDate,
 			Date updateDate,
 			int pageNum, int pageSize,
@@ -158,6 +164,7 @@ public class MerOrderServiceImpl implements MerOrderService{
 		}
 		List<MerOrder> l = merOrderDao.browsePagingMerOrder(
 				acountId,
+				orderNumber,
 				createDate,
 				updateDate,
 				pageNum-1, pageSize, orderName, orderWay);

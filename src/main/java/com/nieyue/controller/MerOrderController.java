@@ -46,6 +46,7 @@ public class MerOrderController {
 	@RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody StateResultList browsePagingMerOrder(
 			@RequestParam(value="acountId",required=false)Integer acountId,
+			@RequestParam(value="orderNumber",required=false)String orderNumber,
 			@RequestParam(value="createDate",required=false)Date createDate,
 			@RequestParam(value="updateDate",required=false)Date updateDate,
 			@RequestParam(value="pageNum",defaultValue="1",required=false)int pageNum,
@@ -53,7 +54,7 @@ public class MerOrderController {
 			@RequestParam(value="orderName",required=false,defaultValue="mer_order_id") String orderName,
 			@RequestParam(value="orderWay",required=false,defaultValue="desc") String orderWay) throws Exception  {
 			List<MerOrder> list = new ArrayList<MerOrder>();
-			list= merOrderService.browsePagingMerOrder(acountId,createDate,updateDate,pageNum, pageSize, orderName, orderWay);
+			list= merOrderService.browsePagingMerOrder(acountId,orderNumber,createDate,updateDate,pageNum, pageSize, orderName, orderWay);
 			if(list.size()>0){
 				return ResultUtil.getSlefSRSuccessList(list);
 			}else{
@@ -95,10 +96,11 @@ public class MerOrderController {
 	@RequestMapping(value = "/count", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody int countAll(
 			@RequestParam(value="acountId",required=false)Integer acountId,
+			@RequestParam(value="orderNumber",required=false)String orderNumber,
 			@RequestParam(value="createDate",required=false)Date createDate,
 			@RequestParam(value="updateDate",required=false)Date updateDate,
 			HttpSession session)  {
-		int count = merOrderService.countAll(acountId,createDate,updateDate);
+		int count = merOrderService.countAll(acountId,orderNumber,createDate,updateDate);
 		return count;
 	}
 	/**

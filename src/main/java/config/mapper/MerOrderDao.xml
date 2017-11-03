@@ -79,6 +79,9 @@ WHERE mer_order_id=#{merOrderId}
 	<if test="acountId!=null">
 	AND acount_id=#{acountId}
 	</if>
+	<if test="orderNumber!=null">
+	AND order_number=#{orderNumber}
+	</if>
 	<if test="createDate!=null">
 	AND DATE(create_date)=DATE(#{createDate})
 	</if>
@@ -96,6 +99,9 @@ WHERE mer_order_id=#{merOrderId}
 	<where>
 	<if test="acountId!=null">
 	AND acount_id=#{acountId}
+	</if>
+	<if test="orderNumber!=null">
+	AND order_number=#{orderNumber}
 	</if>
 	<if test="createDate!=null">
 	AND DATE(create_date)=DATE(#{createDate})
@@ -123,6 +129,9 @@ WHERE mer_order_id=#{merOrderId}
 	<where>
 		<if test="acountId!=null">
 	AND acount_id=#{acountId}
+	</if>
+	<if test="orderNumber!=null">
+	AND order_number=#{orderNumber}
 	</if>
 	<if test="createDate!=null">
 	AND DATE(create_date)=DATE(#{createDate})

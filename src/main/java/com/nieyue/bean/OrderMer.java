@@ -27,6 +27,10 @@ public class OrderMer implements Serializable{
 	 */
 	private Integer number;
 	/**
+	 * 备注
+	 */
+	private String remark;
+	/**
 	 * 商品总价
 	 */
 	private Double totalPrice;
@@ -138,16 +142,23 @@ public class OrderMer implements Serializable{
 	public void setCourierCompany(Integer courierCompany) {
 		this.courierCompany = courierCompany;
 	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public OrderMer() {
 		super();
 	}
-	public OrderMer(Integer orderMerId, Double price, Integer number, Double totalPrice, Date createDate,
+	public OrderMer(Integer orderMerId, Double price, Integer number, String remark, Double totalPrice, Date createDate,
 			Date updateDate, Integer status, Integer courierCompany, String courierNumber, Integer merOrderId,
 			Integer merId, Mer mer) {
 		super();
 		this.orderMerId = orderMerId;
 		this.price = price;
 		this.number = number;
+		this.remark = remark;
 		this.totalPrice = totalPrice;
 		this.createDate = createDate;
 		this.updateDate = updateDate;

@@ -26,12 +26,14 @@ public interface MerOrderDao {
 	/** 商品订单总共数目 */	
 	public int countAll(
 			@Param("acountId")Integer acountId,
+			@Param("orderNumber")String orderNumber,
 			@Param("createDate")Date createDate,
 			@Param("updateDate")Date updateDate
 			);	
 	/** 分页商品订单信息 */
 	public List<MerOrder> browsePagingMerOrder(
 			@Param("acountId")Integer acountId,
+			@Param("orderNumber")String orderNumber,
 			@Param("createDate")Date createDate,
 			@Param("updateDate")Date updateDate,
 			@Param("pageNum")int pageNum,

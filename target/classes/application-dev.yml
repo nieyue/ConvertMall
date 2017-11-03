@@ -32,7 +32,7 @@ myPugin:
   projectName: ConvertMall
   location: c://config/thirdParty.properties
   requestAuth: requestAuthDev
-  sevenSecondsDomainUrl: http://192.168.7.111 
+  sevenSecondsDomainUrl: http://192.168.11.111 
   rabbitmq: 
     MERORDER_DIRECT_EXCHANGE: test.merorder.convertmall.exchange.direct
     MERORDER_DIRECT_ROUTINGKEY: test.merorder.convertmall.routingkey.direct

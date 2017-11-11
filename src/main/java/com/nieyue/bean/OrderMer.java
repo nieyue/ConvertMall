@@ -48,6 +48,7 @@ public class OrderMer implements Serializable{
 	private Integer status;
 	/**
 	 * 快递公司,0暂无,1顺丰速运SF,2中通快递ZTO,3圆通速递YTO,4申通快递STO,5百世快递BestExpress,6韵达快递YUNDA,7中国邮政EMS,8宅急送ZJS,9FedEx联邦,10京东物流
+	 * 11德邦物流,12安能物流,13优速快递,14天天快递,15汇通快递,16国通快递,17全峰快递,18菜鸟物流
 	 */
 	private Integer courierCompany;
 	/**

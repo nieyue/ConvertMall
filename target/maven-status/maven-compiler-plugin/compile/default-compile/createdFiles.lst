@@ -6,7 +6,10 @@ com\nieyue\controller\OrderMerController.class
 com\nieyue\util\Configure.class
 com\nieyue\bean\Acount.class
 com\nieyue\weixin\business\Order.class
+com\nieyue\view\MerOrderXlsView.class
 com\nieyue\rabbitmq\confirmcallback\Sender.class
+com\nieyue\business\AcountBusiness.class
+com\nieyue\business\MerOrderBusiness.class
 com\nieyue\limit\RequestLimitContract.class
 com\nieyue\util\MyDESutil.class
 com\nieyue\controller\MerController.class
